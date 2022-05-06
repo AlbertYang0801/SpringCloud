@@ -1,5 +1,9 @@
 # SpringCloud
 
+### 简介
+
+尚硅谷周阳老师版本 SpringCloud 视频代码笔记。
+
 ### 学习地址
 
 - [尚硅谷-SpringCloud2020视频地址](https://www.bilibili.com/video/BV18E411x7eT?spm_id_from=333.337.search-card.all.click)
@@ -51,6 +55,12 @@
    @EnableEurekaServer
    ```
 
+3. 访问测试
+
+   eureka正常运行，客户端正常注册之后，访问eureka服务端地址（Ip:Port），即可看到服务列表。
+
+   ![image-20220507000000951](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220507000000951.png)
+
    
 
 #### 客户端
@@ -72,10 +82,5 @@
    @EnableEurekaClient
    ```
 
-   
+---
 
-
-
-eureka正常运行，客户端正常注册之后，访问eureka服务端地址（Ip:Port），即可看到服务列表。
-
-![image-20220507000000951](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220507000000951.png)

@@ -34,7 +34,6 @@ public class PaymentController {
     @GetMapping("get/{id}")
     public CommonResult<Payment> selectOne(@PathVariable("id") Long id) {
         Payment payment = this.paymentService.queryById(id);
-
         return new CommonResult<Payment>(200, "select success 8001!", payment);
     }
 
