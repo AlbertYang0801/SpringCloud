@@ -12,7 +12,7 @@ spring:
     url: jdbc:mysql://localhost:3306/miaosha?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&useSSL=false
 
     username: root
-    password: 12345678
+    password: 123456
 
 eureka:
   client:
@@ -26,12 +26,10 @@ eureka:
     instance-id: payment8002
     # 访问路径可以显示Ip地址
     prefer-ip-address: true
-
-#    ip-address: 127.0.0.1
-#    instance-id: payment8001
-#    prefer-ip-address: true
-#    lease-renewal-interval-in-seconds: 1
-#    lease-expiration-duration-in-seconds: 2
+    # Eureka客户端向服务端发送心跳的时间间隔，单位为s（默认30s）。
+    lease-renewal-interval-in-seconds: 30
+    # Eureka服务端在收到最后一次心跳的等待时间间隔，单位为s（默认90s），超时会剔除服务。
+    lease-expiration-duration-in-seconds: 10
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

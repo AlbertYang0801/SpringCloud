@@ -12,20 +12,26 @@ spring:
     url: jdbc:mysql://localhost:3306/miaosha?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&useSSL=false
 
     username: root
-    password: 12345678
+    password: 123456
 
 eureka:
   client:
     register-with-eureka: true
     fetchRegistry: true
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+      defaultZone: http://localhost:7001/eureka/,http://localhost:7002/eureka/
+    #      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
     #      defaultZone: http://eureka7001.com:7001/eureka/
 
   instance:
+    # 实例名称
     instance-id: payment8001
     # 访问路径显示Ip地址
     prefer-ip-address: true
+    # Eureka客户端向服务端发送心跳的时间间隔，单位为s（默认30s）。
+    lease-renewal-interval-in-seconds: 30
+    # Eureka服务端在收到最后一次心跳的等待时间间隔，单位为s（默认90s），超时会剔除服务。
+    lease-expiration-duration-in-seconds: 90
 #    ip-address: 127.0.0.1
 #    instance-id: payment8001
 #    prefer-ip-address: true

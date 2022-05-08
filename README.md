@@ -11,7 +11,7 @@
 
 
 
-## Eureka
+## 注册中心-Eureka
 
 使用 Eureka 实现**服务治理**。
 
@@ -180,3 +180,75 @@ eureka:
 
 ![image-20220508183715557](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508183715.png)
 
+### 心跳保护机制
+
+Eureka 包含两大组件：Eureka Server 和 Eureka Client。
+
+客户端默认情况每隔 30s 向服务端发送一次心跳，而服务端收到心跳之后证实客户端存活。
+
+#### 什么是保护机制
+
+Eureka Server 的保护机制。
+
+当 Eureka Server 收不到 Eureka Client 发来的心跳后，等待一定时间（默认90s），会认为服务端挂掉了。此时 Eureka Server 尝试保护其服务注册表中的信息，不会删除服务注册表中的数据，不会注销任何注册过的微服务。
+
+**配置文件中修改该配置可以关闭自我保护机制**。
+
+```yml
+eureka:
+  ......
+  server:
+    #关闭自我保护机制，保证不可用服务立即被踢出
+    enable-self-preservation: false
+```
+
+**该机制默认开启**，源码默认为 true。
+
+![image-20220508212422983](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220508212422983.png)
+
+
+
+#### 客户端心跳配置
+
+- 客户端发送心跳的时间间隔。
+
+  ```java
+  # Eureka客户端向服务端发送心跳的时间间隔，单位为s（默认30s）。
+  eureka.instance.lease-renewal-interval-in-seconds: 30
+  ```
+
+- 服务端收到心跳后的等待时间间隔。
+
+  ```java
+  # Eureka服务端在收到最后一次心跳的等待时间间隔，单位为s（默认90s），超时会剔除服务。
+  eureka.instance.lease-expiration-duration-in-seconds: 90
+  ```
+
+---
+
+客户端完整配置如下：
+
+```yaml
+eureka:
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+  #      defaultZone: http://eureka7001.com:7001/eureka/
+
+  instance:
+    instance-id: payment8002
+    # 访问路径可以显示Ip地址
+    prefer-ip-address: true
+    # Eureka客户端向服务端发送心跳的时间间隔，单位为s（默认30s）。
+    lease-renewal-interval-in-seconds: 30
+    # Eureka服务端在收到最后一次心跳的等待时间间隔，单位为s（默认90s），超时会剔除服务。
+    lease-expiration-duration-in-seconds: 90
+```
+
+
+
+
+
+## 注册中心-Zookeeper
