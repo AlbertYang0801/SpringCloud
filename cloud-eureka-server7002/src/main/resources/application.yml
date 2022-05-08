@@ -1,9 +1,9 @@
 server:
-  port: 7001
+  port: 7002
 
 spring:
   application:
-    name: cloud-eureka-server7001
+    name: cloud-eureka-server7002
 
 eureka:
   instance:
@@ -17,7 +17,7 @@ eureka:
     register-with-eureka: false # 不检索自己
     service-url:
       # Eureka 实例之间互相注册，即把自己注册到另外的注册中心实例中
-      defaultZone: http://eureka7002.com:7002/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/
   #      defahltZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
     #关闭自我保护机制，保证不可用服务立即被踢出

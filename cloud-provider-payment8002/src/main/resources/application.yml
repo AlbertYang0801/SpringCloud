@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8002
 
 
 spring:
@@ -20,12 +20,13 @@ eureka:
     fetchRegistry: true
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
-    #      defaultZone: http://eureka7001.com:7001/eureka/
+  #      defaultZone: http://eureka7001.com:7001/eureka/
 
   instance:
-    instance-id: payment8001
-    # 访问路径显示Ip地址
+    instance-id: payment8002
+    # 访问路径可以显示Ip地址
     prefer-ip-address: true
+
 #    ip-address: 127.0.0.1
 #    instance-id: payment8001
 #    prefer-ip-address: true
