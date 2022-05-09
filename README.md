@@ -1,6 +1,6 @@
 # SpringCloud
 
-### 简介
+## 简介
 
 尚硅谷周阳老师版本 SpringCloud 视频代码笔记。
 
@@ -11,21 +11,21 @@
 
 
 
-## 注册中心-Eureka
+## 注册中心
+
+### 1. Eureka
 
 使用 Eureka 实现**服务治理**。
 
-### 系统架构
+#### 系统架构
 
 ![image-20220506215158478](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506215158478.png)
 
-### 服务端和客户端
+#### 服务端和客户端
 
 ![image-20220506220354548](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506220354548.png)
 
-
-
-#### 服务端
+**服务端**
 
 1. 配置文件
 
@@ -63,7 +63,7 @@
 
    
 
-#### 客户端
+**客户端**
 
 1. 配置文件
 
@@ -84,9 +84,9 @@
 
 ---
 
-### 集群版
+#### 集群版
 
-#### 服务端互相注册
+**服务端互相注册**
 
 比如 7001 配置 7002 的地址，将自己注册到其它注册中心。
 
@@ -120,7 +120,7 @@ eureka:
 
 
 
-#### 客户端注册多个Eureka
+**客户端注册多个Eureka**
 
 客户端注册 Eureka 时，配置每个 Eureka Server 的地址，以逗号隔开。
 
@@ -141,9 +141,9 @@ eureka:
 
 
 
-### restTemplate-负载均衡和服务名访问
+#### restTemplate-负载均衡和服务名访问
 
-#### @LoadBalanced注解作用
+**@LoadBalanced注解作用**
 
 1. 开启负载均衡。
 
@@ -159,7 +159,7 @@ eureka:
 
 ![image-20220508182516351](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508182516.png)
 
-### 服务发现-Discovery
+#### 服务发现-Discovery
 
 通过服务发现，获取注册到 Eureka 中的服务信息。
 
@@ -180,13 +180,13 @@ eureka:
 
 ![image-20220508183715557](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508183715.png)
 
-### 心跳保护机制
+#### 心跳保护机制
 
 Eureka 包含两大组件：Eureka Server 和 Eureka Client。
 
 客户端默认情况每隔 30s 向服务端发送一次心跳，而服务端收到心跳之后证实客户端存活。
 
-#### 什么是保护机制
+**什么是保护机制**
 
 Eureka Server 的保护机制。
 
@@ -208,7 +208,7 @@ eureka:
 
 
 
-#### 客户端心跳配置
+**客户端心跳配置**
 
 - 客户端发送心跳的时间间隔。
 
@@ -247,11 +247,7 @@ eureka:
     lease-expiration-duration-in-seconds: 90
 ```
 
-
-
-
-
-## 注册中心-Zookeeper
+### 2. Zookeeper
 
 ![image-20220509164722758](C:\Users\yjw\AppData\Roaming\Typora\typora-user-images\image-20220509164722758.png)
 
@@ -263,13 +259,9 @@ eureka:
 
 ![image-20220509164837290](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164837290.png)
 
+### 3. consul
 
-
-
-
-## 注册中心-consul
-
-### 安装
+#### 安装
 
 - 下载地址
 
@@ -278,7 +270,7 @@ eureka:
 - 安装地址
 
   ```java
-  D:\Java\SpringCloud\consul
+  D:\SpringCloud\consul
   ```
 
 - 启动命令
@@ -294,14 +286,61 @@ eureka:
 
   http://localhost:8500
 
+#### 服务注册
 
-
-
-
-### 服务注册
-
-参考模块 **cloud-provider-payment8006**、
+参考模块 **cloud-provider-payment8006**。
 
 注册成功访问管理页面可以看到服务信息。
 
 ![image-20220509175912577](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509175912577.png)
+
+#### 服务发现
+
+参考模块 **cloud-consumerconsul-order80**
+
+```yml
+spring:
+  application:
+    name: cloud-comsumer-order
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+      discovery:
+        service-name: ${spring.application.name}
+```
+
+### 三个注册中心的异同点
+
+#### 相同点
+
+- 都可以作为注册中心实现服务的注册与发现。
+
+#### CAP理论
+
+- C: Consistency(强一致性)
+- A: Availability(可用性)
+- P: Parttition tolerance(分区容错性)
+
+![image-20220509230023366](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509230023366.png)
+
+#### 各个组件的类型
+
+- Eureka - AP
+
+  Eureka默认有个分区保护机制，当 Eureka Client 经过一定时间没有心跳发送到 Eureka Server，Eureka Server 不会将 对应的Eureka Client 的注册信息删除。
+
+  所以 Eureka 在分布式情况下类型对应 AP 类型，牺牲了数据的一致性，来保证可用性。
+
+- Zookeeper
+
+  当接收不到某个 Client 的心跳后，会立即删除该 Client 的服务信息。该 Client 重新注册后，会重新生成服务。
+
+  所以 Zookeeper 对应 CP 类型，牺牲可用性，保证数据一致性。
+
+- Consul
+
+  类型 Zookeeper，当 Client 不可用时，立即标识 Client 不可用。
+
+  同理 Consul 对应 CP类型。
+
