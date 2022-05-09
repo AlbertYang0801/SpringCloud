@@ -249,7 +249,7 @@ eureka:
 
 ### 2. Zookeeper
 
-![image-20220509164722758](C:\Users\yjw\AppData\Roaming\Typora\typora-user-images\image-20220509164722758.png)
+![image-20220509164722758](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164722758.png)
 
 **注册进 Zookeeper 的服务节点是临时节点还是持久节点？**
 
@@ -290,6 +290,21 @@ eureka:
 
 参考模块 **cloud-provider-payment8006**。
 
+```yml
+server:
+  port: 8006
+spring:
+  application:
+    name: consul-payment-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+
+```
+
 注册成功访问管理页面可以看到服务信息。
 
 ![image-20220509175912577](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509175912577.png)
@@ -328,9 +343,9 @@ spring:
 
 - Eureka - AP
 
-  Eureka默认有个分区保护机制，当 Eureka Client 经过一定时间没有心跳发送到 Eureka Server，Eureka Server 不会将 对应的Eureka Client 的注册信息删除。
+  Eureka默认有个分区保护机制，当 Eureka Client 经过一定时间没有心跳发送到 Eureka Server，Eureka Server 不会将 对应的Eureka Client 的注册信息删除。所以 Eureka 在分布式情况下类型对应 AP 类型，牺牲了数据的一致性，来保证可用性。
 
-  所以 Eureka 在分布式情况下类型对应 AP 类型，牺牲了数据的一致性，来保证可用性。
+  *Eureka 的保护机制可以关闭，当关闭保护机制时，也是 AP 类型。*
 
 - Zookeeper
 
