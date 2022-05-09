@@ -252,3 +252,56 @@ eureka:
 
 
 ## 注册中心-Zookeeper
+
+![image-20220509164722758](C:\Users\yjw\AppData\Roaming\Typora\typora-user-images\image-20220509164722758.png)
+
+**注册进 Zookeeper 的服务节点是临时节点还是持久节点？**
+
+临时节点。
+
+*当 Zookeeper 服务端收不到客户端发来的心跳时，会将客户端信息删除。假如该客户端重新加入，则重新生成服务节点。*
+
+![image-20220509164837290](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164837290.png)
+
+
+
+
+
+## 注册中心-consul
+
+### 安装
+
+- 下载地址
+
+  https://www.consul.io/downloads
+
+- 安装地址
+
+  ```java
+  D:\Java\SpringCloud\consul
+  ```
+
+- 启动命令
+
+  ```properties
+  #查看版本
+  consul --version
+  #开发模式启动
+  consul agent -dev
+  ```
+
+- 管理页面
+
+  http://localhost:8500
+
+
+
+
+
+### 服务注册
+
+参考模块 **cloud-provider-payment8006**、
+
+注册成功访问管理页面可以看到服务信息。
+
+![image-20220509175912577](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509175912577.png)
