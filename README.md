@@ -11,7 +11,7 @@
 
 
 
-## 注册中心
+## 注册中心-Eureka
 
 ### 1. Eureka
 
@@ -359,3 +359,14 @@ spring:
 
   同理 Consul 对应 CP类型。
 
+
+
+## 负载均衡-Ribbon
+
+
+
+![img](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220510115710.png)
+
+
+
+![img](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220510115722.png)
