@@ -363,8 +363,6 @@ spring:
 
 ## 负载均衡-Ribbon
 
-
-
 ![img](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220510115710.png)
 
 
