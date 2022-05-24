@@ -19,11 +19,11 @@
 
 #### 系统架构
 
-![image-20220506215158478](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506215158478.png)
+![image-20220506215158478](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506215158478.png)
 
 #### 服务端和客户端
 
-![image-20220506220354548](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506220354548.png)
+![image-20220506220354548](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506220354548.png)
 
 **服务端**
 
@@ -59,7 +59,7 @@
 
    eureka正常运行，客户端正常注册之后，访问eureka服务端地址（Ip:Port），即可看到服务列表。
 
-   ![image-20220507000000951](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220507000000951.png)
+   ![image-20220507000000951](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220507000000951.png)
 
    
 
@@ -153,11 +153,9 @@ eureka:
 
    加了之后可以访问注册到 eureka 中的服务名。比如 `http://CLOUD-PAYMENT-SERVICE` 
 
-   > 使用RestTemplateCustomizer对所有标注了@LoadBalanced的RestTemplate Bean添加了一个LoadBalancerInterceptor拦截器。利用RestTempllate的拦截器，spring可以对restTemplate bean进行定制，加入loadbalance拦截器进行ip:port的替换，也就是将请求的地址中的服务逻辑名转为具体的服务地址。
+   > 使用 RestTemplateCustomizer 对所有标注了@LoadBalanced的RestTemplate Bean 添加了一个 LoadBalancerInterceptor 拦截器。利用 RestTempllate 的拦截器，spring可以对restTemplate bean进行定制，加入loadbalance拦截器进行 ip:port 的替换，也就是将请求的地址中的服务逻辑名转为具体的服务地址。
 
-
-
-![image-20220508182516351](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508182516.png)
+![image-20220508182516351](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508182516.png)
 
 #### 服务发现-Discovery
 
@@ -178,7 +176,7 @@ eureka:
     }
 ```
 
-![image-20220508183715557](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508183715.png)
+![image-20220508183715557](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508183715.png)
 
 #### 心跳保护机制
 
@@ -204,7 +202,7 @@ eureka:
 
 **该机制默认开启**，源码默认为 true。
 
-![image-20220508212422983](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220508212422983.png)
+![image-20220508212422983](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220508212422983.png)
 
 
 
@@ -249,7 +247,7 @@ eureka:
 
 ### 2. Zookeeper
 
-![image-20220509164722758](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164722758.png)
+![image-20220509164722758](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164722758.png)
 
 **注册进 Zookeeper 的服务节点是临时节点还是持久节点？**
 
@@ -257,7 +255,7 @@ eureka:
 
 *当 Zookeeper 服务端收不到客户端发来的心跳时，会将客户端信息删除。假如该客户端重新加入，则重新生成服务节点。*
 
-![image-20220509164837290](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164837290.png)
+![image-20220509164837290](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164837290.png)
 
 ### 3. consul
 
@@ -288,7 +286,7 @@ eureka:
 
 #### 服务注册
 
-参考模块 **cloud-provider-payment8006**。
+参考模块: **cloud-provider-payment8006**。
 
 ```yml
 server:
@@ -307,11 +305,11 @@ spring:
 
 注册成功访问管理页面可以看到服务信息。
 
-![image-20220509175912577](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509175912577.png)
+![image-20220509175912577](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509175912577.png)
 
 #### 服务发现
 
-参考模块 **cloud-consumerconsul-order80**
+参考模块: **cloud-consumerconsul-order80**
 
 ```yml
 spring:
@@ -337,7 +335,7 @@ spring:
 - A: Availability(可用性)
 - P: Parttition tolerance(分区容错性)
 
-![image-20220509230023366](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509230023366.png)
+![image-20220509230023366](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509230023366.png)
 
 #### 各个组件的类型
 
@@ -345,7 +343,7 @@ spring:
 
   Eureka默认有个分区保护机制，当 Eureka Client 经过一定时间没有心跳发送到 Eureka Server，Eureka Server 不会将 对应的Eureka Client 的注册信息删除。所以 Eureka 在分布式情况下类型对应 AP 类型，牺牲了数据的一致性，来保证可用性。
 
-  *Eureka 的保护机制可以关闭，当关闭保护机制时，也是 AP 类型。*
+  *Eureka 的保护机制可以关闭，当关闭保护机制时，也是 CP 类型。*
 
 - Zookeeper
 
@@ -363,8 +361,39 @@ spring:
 
 ## 负载均衡-Ribbon
 
-![img](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220510115710.png)
+### Ribbon工作原理
+
+1. 选择负载较少的 Eureka Server。
+
+2. 根据指定的负载均衡策略，从 Eureka Server 获取指定服务的服务地址。
+
+   Ribbon 提供了多种负载均衡策略，默认是轮询策略，可以设置随机、权重、响应时间加权等策略。
+
+3. 根据获取到的服务地址发起请求。
+
+![img](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220510115710.png)
 
 
 
-![img](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220510115722.png)
+### Ribbon和Nginx的区别
+
+- Ribbon 是客户端的负载均衡。
+
+- nginx 是服务端的负载均衡。
+
+  
+
+https://blog.csdn.net/weixin_46115725/article/details/111032634
+
+
+
+
+
+
+
+## OpenFeign
+
+https://github.com/spring-cloud/spring-cloud-openfeign
+
+![image-20220523163233823](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220523163233.png)
+

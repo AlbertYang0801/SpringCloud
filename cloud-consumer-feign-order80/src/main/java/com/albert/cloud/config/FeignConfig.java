@@ -11,9 +11,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeignConfig {
 
+    /**
+     * Feign接口的日志级别
+     */
     @Bean
     public Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
     }
+
 }
 

@@ -1,14 +1,10 @@
 package com.albert.cloud.controller;
 
-import com.albert.cloud.entities.CommonResult;
-import com.albert.cloud.entities.Payment;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.Resource;
 
 /**
  * @author yjw
@@ -18,14 +14,16 @@ import javax.annotation.Resource;
 @RequestMapping("order")
 public class OrderController {
 
-    //访问consul中的服务名（负载均衡）
+    /**
+     * 访问consul中的服务名（负载均衡）
+     */
     public static final String PAYMENT_URL = "http://consul-payment-service";
 
     @Resource
     private RestTemplate restTemplate;
 
     @GetMapping("/payment/consul")
-    public String craete() {
+    public String create() {
         return restTemplate.getForObject(PAYMENT_URL + "/payment/consul", String.class);
     }
 

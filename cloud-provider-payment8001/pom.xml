@@ -23,7 +23,7 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!--        包含了Sleuth-->
+        <!-- 包含了Sleuth-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
@@ -63,7 +63,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
+
 </project>

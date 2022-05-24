@@ -32,30 +32,25 @@ public class PaymentController {
     @Resource
     private DiscoveryClient discoveryClient;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
     @GetMapping("get/{id}")
     public CommonResult<Payment> selectOne(@PathVariable("id") Long id) {
         Payment payment = this.paymentService.queryById(id);
-        return new CommonResult<Payment>(200, "select success 8001!", payment);
+        return new CommonResult<>(200, "select success 8001!", payment);
     }
 
     @PostMapping("create")
-    public CommonResult create(@RequestBody Payment payment) {
+    public CommonResult<Payment> create(@RequestBody Payment payment) {
         Payment insert = this.paymentService.insert(payment);
         System.out.println(insert);
         System.out.println("1234567890");
-        return new CommonResult(200, "insert success", insert);
+        return new CommonResult<>(200, "insert success", insert);
     }
 
     @GetMapping("discovery")
     public Object discovery() {
         List<String> services = discoveryClient.getServices();
         System.out.println(JSONUtil.toJsonStr(services));
+        //服务发现
         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
         for (ServiceInstance instance : instances) {
             System.out.println(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri());
