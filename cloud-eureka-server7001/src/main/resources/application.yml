@@ -14,9 +14,9 @@ eureka:
     fetch-registry: false
     #不进行服务检索，作为注册中心只需要维护服务实例
     register-with-eureka: false
-    service-url:
-      # Eureka 实例之间互相注册，即把自己注册到另外的注册中心实例中
-      defaultZone: http://localhost:7002/eureka/
+#    service-url:
+#      # Eureka 实例之间互相注册，即把自己注册到另外的注册中心实例中
+#      defaultZone: http://localhost:7002/eureka/
   server:
     #关闭自我保护机制，保证不可用服务立即被踢出
     enable-self-preservation: false
