@@ -2,6 +2,11 @@ package com.albert.cloud.controller;
 
 import com.albert.cloud.entities.CommonResult;
 import com.albert.cloud.entities.Payment;
+import com.albert.cloud.lb.MyLoadBalaner;
+import java.net.URI;
+import java.util.List;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +21,12 @@ import javax.annotation.Resource;
 @RestController
 public class OrderController {
 
-//    private static final String PAYMENT_URL = "http://localhost:8001";
+    @Resource
+    private DiscoveryClient discoveryClient;
 
-    //访问eureka中的服务名（负载均衡）
+    @Resource
+    MyLoadBalaner myLoadBalaner;
+
     public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
 
     @Resource
@@ -32,6 +40,14 @@ public class OrderController {
     @GetMapping("/consumer/payment/get/{id}")
     public CommonResult<Payment> query(@PathVariable("id") Long id) {
         return restTemplate.getForObject(PAYMENT_URL + "/payment/get/" + id, CommonResult.class);
+    }
+
+    @GetMapping("/consumer/payment/lb}")
+    public String getPaymentUrl() {
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        ServiceInstance instance = myLoadBalaner.instances(instances);
+        URI uri = instance.getUri();
+        return restTemplate.getForObject(uri+"/payment/lb",String.class);
     }
 
 

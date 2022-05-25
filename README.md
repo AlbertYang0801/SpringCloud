@@ -361,6 +361,8 @@ spring:
 
 ## 负载均衡-Ribbon
 
+Ribbon 的主要功能就是 **客户端的服务调用和负载均衡**。
+
 ### Ribbon工作原理
 
 1. 选择负载较少的 Eureka Server。
@@ -379,21 +381,167 @@ spring:
 
 - Ribbon 是客户端的负载均衡。
 
-- nginx 是服务端的负载均衡。
+  在调用微服务接口的时候，Ribbon会从注册中心查询可用服务列表，通过固定的负载均衡策略，挑选可用服务地址，从本地发起远程调用。
+
+- Nginx 是服务端的负载均衡。
+
+  Nginx 是客户端发送请求给 Nginx，然后再由 Nginx 实现转发请求，这时的负载均衡是由 Nginx实现的，与客户端无关，称为服务端的负载均衡。
 
   
 
-https://blog.csdn.net/weixin_46115725/article/details/111032634
+
+
+### Ribbon负载均衡的策略
+
+![image-20220525140307612](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220525140307.png)
 
 
 
+### 实现轮询算法
 
+#### 原理
+
+记录请求服务的次数，每请求一次，递增一次。访问时根据请求次数对服务总数取余。
+
+#### 代码实现
+
+创建一个接口
+
+```java
+public interface MyLoadBalaner {
+
+    /**
+     * 根据特定算法选择服务实例
+     * @param serviceInstances 服务实例列表
+     * @return 算法选中的服务实例
+     */
+    ServiceInstance instances(List<ServiceInstance> serviceInstances);
+
+}
+```
+
+接口实现类
+
+```java
+@Component
+@Slf4j
+public class MyLoadBalanceImpl implements MyLoadBalaner {
+
+    private final AtomicInteger atomicInteger = new AtomicInteger(0);
+
+    @Override
+    public ServiceInstance instances(List<ServiceInstance> serviceInstances) {
+        //轮询的负载均衡策略（采用取余的情况）
+        int index = getAndIncrement() % serviceInstances.size();
+        return serviceInstances.get(index);
+    }
+
+    /**
+     * 值加一
+     * @return 自旋后的值
+     */
+    public final int getAndIncrement() {
+        int current = 0;
+        int next;
+        //自旋，增加值
+        do {
+            current = atomicInteger.get();
+            next = current + 1;
+        } while (!atomicInteger.compareAndSet(current, next));
+        return next;
+    }
+
+
+}
+```
+
+服务消费者调用该方法，选择服务。
+
+```java
+@GetMapping("/consumer/payment/lb}")
+public String getPaymentUrl() {
+		List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+    ServiceInstance instance = myLoadBalaner.instances(instances);
+    URI uri = instance.getUri();
+    return restTemplate.getForObject(uri+"/payment/lb",String.class);
+}
+```
 
 
 
 ## OpenFeign
 
-https://github.com/spring-cloud/spring-cloud-openfeign
+Feign是一个声明式WebService客户端。使用Feign能让编写WebService客户端更加简单。
 
-![image-20220523163233823](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220523163233.png)
+定义一个服务接口然后在上面添加注解。Feign也能支持可拔插式的编码器和解码器。Spring Cloud对Feign进行了封装，使其能够支持SpringMVC标准注解和HttpMessageConverters。Feign可以与Eureka和Ribbon组合使用完成负载均衡。
 
+Feign旨在使Java Http客户端变得更加容易。
+
+前面在使用Ribbon+RestTemplate时，利用RestTemplate对Http请求做封装处理，形成一套模板化的调用方法。但是在实际开发中，由于对服务依赖的调用可能不止一处，往往一个接口会被多处调用。所以，Feign在此基础上做了进一步的封装，由他来帮助我们定义和实现接口。在Feign的实现下，我们只需要使用注解配置接口，即可完成对服务提供方的接口绑定，简化了使用Spring Cloud Ribbon时，自己封装服务调用的工作量。
+
+默认Feign集成了Ribbon。
+
+### OpenFeign的超时控制
+
+当OpenFeign配置的等待时间少于服务端的处理时间时，会发生超市错误。所以尽可能在OpenFeign的客户端配置等待时间少于服务端的处理时间。
+
+```yml
+ribbon:
+  # 指的是建立连接所用的时间,适用于网络状态正常的情况下,两端连接所用的时间
+  ReadTimeout: 5000
+  # 指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000
+```
+
+### OpenFeign的日志增强
+
+OpenFeign在调用服务接口时，可以打印日志，对应日志类型如下。
+
+- NONE：默认的，不显示任何日志
+- BASIC：仅仅记录请求方法、URL、响应状态码以及执行时间
+- HEADERS：除了BASIC中定义的信息之外，还有请求和响应的头信息
+- FULL：除了HEADERS中定义的信息之外，还有请求和响应的正文以及元数据。
+
+新增配置类。
+
+```java
+@Configuration
+public class FeignConfig {
+
+    /**
+     * Feign接口的日志类型
+     */
+    @Bean
+    public Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+
+}
+```
+
+配置文件中增加指定服务类的日志级别。
+
+```yml
+logging:
+  level:
+    #feign日志以什么级别监控某个服务类
+    com.albert.cloud.service.PaymentFeignService: debug
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 参考链接
+
+- [https://www.cnblogs.com/dataoblogs/p/14121874.html](https://www.cnblogs.com/dataoblogs/p/14121874.html)

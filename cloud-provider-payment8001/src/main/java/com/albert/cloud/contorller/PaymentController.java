@@ -57,12 +57,11 @@ public class PaymentController {
         }
         return this.discoveryClient;
     }
-
-//
-//    @GetMapping("lb")
-//    public String getPaymentLB() {
-//        return serverPort;
-//    }
+    
+    @GetMapping("lb")
+    public String getPaymentLb() {
+        return serverPort;
+    }
 
     @GetMapping("feign/timeout")
     public String getFeignTimeOut() {
