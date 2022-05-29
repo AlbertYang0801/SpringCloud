@@ -532,31 +532,33 @@ logging:
 
 ## Hystrix
 
+Hystrix 是用来处理分布式系统容错的组件，Hystrix 能够保证在链路调用，下游服务出现问题时（异常、超时等），采用断路器的机制，保证整体服务不会失败，避免链路调用情况下的雪崩情况发生。
+
+
+
 ### 服务降级
 
-在链路调用情况下，若发现调用下游服务触发服务降级的条件（比如超时、异常等），返回友好提示，减少客户端的阻塞等待。
+在链路调用情况下，若发现调用下游服务触发服务降级的条件（比如超时、异常等），执行 fallback 降级机制，比如返回友好提示等。
 
 服务降级是先执行正常的方法，判断满足服务降级的条件后，进行服务降级的策略。
 
-```java
-	//在方法调用超过5s时，调用指定方法返回友好提示。
-    @HystrixCommand
-    @HystrixCommand(fallbackMethod = "getPaymentServiceError",commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "5000")
-    })
-```
+- fallbackMethod
 
+  服务降级触发时执行的方法。
 
+- execution.isolation.thread.timeoutInMilliseconds
 
-客户端和服务端都配置服务降级
+  方法执行最大时间，超时则触发 fallback 降级机制。
 
+  ```java
+  	//在方法调用超过5s时，调用指定方法返回友好提示。
+      @HystrixCommand
+      @HystrixCommand(fallbackMethod = "getPaymentServiceError",commandProperties = {
+              @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "5000")
+      })
+  ```
 
-
-
-
-
-
-
+- 方法内的异常也会触发 fallback 降级机制。
 
 
 
@@ -576,7 +578,7 @@ logging:
 
 - 而服务熔断是在多次请求满足了开启断路器的条件后，执行的熔断机制。触发熔断机制之后，所有请求在规定时间内直接触发 fallback降级机制，不再调用下游服务。
 
-  减少调用下游服务时的阻塞等待时间，减轻客户端压力。
+  **减少客户端因为调用下雨偶服务产生的长时间的阻塞等待，避免分布式系统中的调用延时，雪崩问题。**
 
   
 
@@ -637,6 +639,17 @@ logging:
 >正常请求：http-nio-8001-exec-9-----------服务端服务熔断触发----ERROR----3
 
 可以看到触发断路器之后，不管正常还是异常请求都会触发 fallback 机制。
+
+### 实际场景
+
+当业务流量比较大，原有逻辑已经满足不了服务调用时，可以采取服务降级或服务熔断的机制来进行优化。
+
+1. 在实际业务中，要区分出主要和次要的功能，次要功能可以选择加上服务熔断的机制。
+2. 针对主要功能中调用次要功能的部分，可以将调用机制改为异步，即将调用的强一致性改为最终一致性。
+
+
+
+
 
 
 
