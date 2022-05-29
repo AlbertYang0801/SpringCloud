@@ -33,12 +33,18 @@ public class OrderController {
      * 客户端服务降级
      */
     @GetMapping("info/error/{id}")
-//    @HystrixCommand
+    @HystrixCommand
 //    @HystrixCommand(fallbackMethod = "getPaymentServiceError",commandProperties = {
-//            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
+//            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "500")
 //    })
     public String paymentInfoError(@PathVariable("id") Integer id) {
         return paymentHystrixService.getPaymentInfoError(id);
+    }
+
+    @GetMapping("info/circuit/{id}")
+    @HystrixCommand
+    public String paymentCircuitBreaker(@PathVariable("id") Integer id) {
+        return paymentHystrixService.paymentCircuitBreaker(id);
     }
 
     public String getPaymentServiceError(Integer id) {

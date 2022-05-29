@@ -15,6 +15,12 @@ public class PaymentFallbackService implements PaymentHystrixService{
 
     @Override
     public String getPaymentInfoError(Integer id) {
-        return "------80消费者------getPaymentInfoError faullBack";
+        return "------80消费者------getPaymentInfoError fallBack";
     }
+
+    @Override
+    public String paymentCircuitBreaker(Integer id) {
+        return "------80消费者------服务熔断 fallBack";
+    }
+
 }

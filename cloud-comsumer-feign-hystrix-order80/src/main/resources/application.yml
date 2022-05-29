@@ -16,6 +16,15 @@ feign:
     #在feign中开启hystrix
     enabled: true
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+
 #设置feign客户端超时时间(OpenFeign默认支持ribbon)
 ribbon:
   # 指的是建立连接所用的时间,适用于网络状态正常的情况下,两端连接所用的时间

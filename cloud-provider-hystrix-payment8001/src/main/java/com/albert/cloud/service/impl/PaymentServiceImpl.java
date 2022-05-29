@@ -27,7 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
      * commandProperties：配置回调条件
      */
     @HystrixCommand(fallbackMethod = "getPaymentInfoErrorHandler", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
     })
     @Override
     public String getPaymentInfoError(Integer id) {
@@ -36,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
             //睡眠5秒（触发服务降级）
             TimeUnit.SECONDS.sleep(3);
             //异常也可以触发服务降级
-//            int age = 10 / 0;
+            int age = 10 / 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,16 +44,28 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @HystrixCommand(
+            fallbackMethod = "paymentCircuitBreakerFallback", commandProperties =
+            {
+                    @HystrixProperty(name = "circuitBreaker.enabled", value = "true"), //是否开启断路器
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"), //请求次数
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), //时间窗口期
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"),//失败率达到多少后跳闸
+            }
+    )
     public String paymentCircuitBreaker(Integer id) {
         if (id < 0) {
             throw new RuntimeException("-----------------------id不能为负数-------------------");
         }
-        String simpleUUID = IdUtil.simpleUUID();
-        return Thread.currentThread().getName() + "\t" + "成功调用，流水号是：" + simpleUUID;
+        return Thread.currentThread().getName() + "\t" + "成功调用，流水号是：" +IdUtil.simpleUUID();
     }
 
     public String getPaymentInfoErrorHandler(Integer id) {
-        return Thread.currentThread().getName() + "-----------getPaymentInfo_ErrorHandler----ERROR----" + id;
+        return Thread.currentThread().getName() + "-----------服务端服务降级----ERROR----" + id;
+    }
+
+    public String paymentCircuitBreakerFallback(Integer id) {
+        return Thread.currentThread().getName() + "-----------服务端服务熔断触发----ERROR----" + id;
     }
 
 

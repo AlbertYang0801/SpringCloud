@@ -19,5 +19,7 @@ public interface PaymentHystrixService {
     @GetMapping("payment/info/error/{id}")
     String getPaymentInfoError(@PathVariable("id") Integer id);
 
+    @GetMapping("payment/info/circuit/{id}")
+    String paymentCircuitBreaker(@PathVariable("id") Integer id);
 
 }

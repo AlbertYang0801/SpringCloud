@@ -530,6 +530,25 @@ logging:
 
 
 
+## Hystrix
+
+### 服务降级
+
+在链路调用情况下，若发现调用下游服务触发服务降级的条件（比如超时、异常等），返回友好提示，减少客户端的阻塞等待。
+
+服务降级是先执行正常的方法，判断满足服务降级的条件后，进行服务降级的策略。
+
+```java
+	//在方法调用超过5s时，调用指定方法返回友好提示。
+    @HystrixCommand
+    @HystrixCommand(fallbackMethod = "getPaymentServiceError",commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "5000")
+    })
+```
+
+
+
+客户端和服务端都配置服务降级
 
 
 
@@ -539,9 +558,89 @@ logging:
 
 
 
+
+
+### 服务熔断
+
+服务熔断是一种链路调用增强的保护机制。
+
+- 当链路服务调用时，下游服务出现不可用时，会进行服务降级，执行 fallback 降级机制。
+
+- 当连续多次发生不可用时，会触发服务熔断。开启断路器，直接熔断对该下游服务的调用，直接执行 fallback降级机制。
+
+**当检测到该下游服务可用时，则恢复调用链路**。
+
+**和服务降级的不同点**
+
+- 服务降级是先进行服务调用后，发现满足服务降级的条件后，触发 fallback 降级机制。
+
+- 而服务熔断是在多次请求满足了开启断路器的条件后，执行的熔断机制。触发熔断机制之后，所有请求在规定时间内直接触发 fallback降级机制，不再调用下游服务。
+
+  减少调用下游服务时的阻塞等待时间，减轻客户端压力。
+
+  
+
+#### 服务熔断重要参数
+
+- **circuitBreaker.enabled** 
+
+  是否开启断路器
+
+- **circuitBreaker.errorThresholdPercentage**
+
+  请求错误百分比，默认值50%。例如一段时间内 （10s）请求100个，错误请求超过50个，才会打开断路器。
+
+- **circuitBreaker.requestVolumeThreshold**
+
+  请求阈值，默认20。至少有20个请求，才会进行错误百分比计算。否则不会打开断路器。
+
+- **circuitBreaker.sleepWindowInMilliseconds**
+
+  时间窗口期，默认5s。在 5s 内请求错误率达到配置值，开启断路器。*所有经过断路器的请求直接走fallbak降级机制，不调用下游服务。*
+
+  而断路器开启时间到达5s后，变更状态为半开状态，允许一个请求转发到下游服务检测下游服务是否正常，若下游服务正常，关闭断路器。否则继续开启，继续等待下一个周期。
+
+  
+
+```java
+	@HystrixCommand(
+            fallbackMethod = "paymentCircuitBreakerFallback", commandProperties =
+            {
+                    @HystrixProperty(name = "circuitBreaker.enabled", value = "true"), //是否开启断路器
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"), //请求次数
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), //时间窗口期
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"),//失败率达到多少后跳闸
+            }
+    )
+    public String paymentCircuitBreaker(Integer id) {
+        if (id < 0) {
+            throw new RuntimeException("-----------------------id不能为负数-------------------");
+        }
+        return Thread.currentThread().getName() + "\t" + "成功调用，流水号是：" +IdUtil.simpleUUID();
+    }
+```
+
+服务熔断测试效果
+
+>正常调用：http://localhost/order/info/circuit/1
+>
+>- hystrix-PaymentServiceImpl-10 成功调用，流水号是：6c23fe7b0ee645d89b6fa5422246f0b3\
+>
+>错误调用：http://localhost/order/info/circuit/-111
+>
+>- hystrix-PaymentServiceImpl-10-----------服务端服务熔断触发----ERROR-----111
+>
+>多次错误调用，触发断路器之后：
+>
+>错误请求：hystrix-PaymentServiceImpl-10-----------服务端服务熔断触发----ERROR-----111
+>
+>正常请求：http-nio-8001-exec-9-----------服务端服务熔断触发----ERROR----3
+
+可以看到触发断路器之后，不管正常还是异常请求都会触发 fallback 机制。
 
 
 
 ## 参考链接
 
 - [https://www.cnblogs.com/dataoblogs/p/14121874.html](https://www.cnblogs.com/dataoblogs/p/14121874.html)
+- [Hystrix-深入 Hystrix 断路器执行原理](https://zhuanlan.zhihu.com/p/84403081)

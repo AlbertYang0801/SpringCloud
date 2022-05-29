@@ -20,12 +20,12 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping("info/ok/{id}")
-    public String getPaymentInfo_OK(@PathVariable("id") Integer id){
+    public String getPaymentInfoOk(@PathVariable("id") Integer id){
       return paymentService.getPaymentInfoOk(id);
     }
 
     @GetMapping("info/error/{id}")
-    public String getPaymentInfo_Error(@PathVariable("id") Integer id){
+    public String getPaymentInfoError(@PathVariable("id") Integer id){
         return paymentService.getPaymentInfoError(id);
     }
 
