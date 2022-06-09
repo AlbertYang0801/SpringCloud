@@ -7,15 +7,19 @@ spring:
     gateway:
       routes:
         - id: payment_routh
-          uri: http://localhost:8001
-          #          uri: lb://cloud-payment-service
+          #uri: http://localhost:8001
+          #服务动态路由，lb指开启负载均衡
+          uri: lb://cloud-payment-service
           predicates:
             - Path=/payment/get/**
+            - After=2022-06-07T23:26:09.468+08:00[Asia/Shanghai]
+            - Cookie=username,yyds
         - id: payment_routh2
-          uri: http://localhost:8001
-          #          uri: lb://cloud-payment-service
+          #uri: http://localhost:8001
+          uri: lb://cloud-payment-service
           predicates:
             - Path=/payment/lb/**
+            - After=2022-06-08T23:26:09.468+08:00[Asia/Shanghai]
       discovery:
         locator:
           enabled: true  #开启从注册中心动态生成路由的功能，用微服务名进行路由

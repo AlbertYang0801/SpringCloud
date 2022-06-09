@@ -665,7 +665,100 @@ Gateway 是 Spring 社区提供的网关组件，提供了反向代理、鉴权�
 
 ![image-20220607000947516](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220607000947516.png)
 
+### 实现方式
 
+- yml配置
+
+  ```yml
+  spring:
+    application:
+      name: cloud-gateway-service
+    cloud:
+      gateway:
+        routes:
+          - id: payment_routh
+            uri: http://localhost:8001
+            predicates:
+              - Path=/payment/get/**
+          - id: payment_routh2
+            uri: http://localhost:8001
+            predicates:
+              - Path=/payment/lb/**
+  ```
+
+  
+
+- 配置类
+
+  ```java
+  @Configuration
+  public class GateWayConfig {
+  
+      @Bean
+      public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+          return builder.routes().route("path_route", r -> r.path("/guonei").uri("https://news.baidu.com")).build();
+      }
+  
+  }
+  ```
+
+### 服务名动态配置
+
+默认情况下 Gateway 会根据注册中心注册的服务列表，以注册中心上注册的**微服务名称创建动态路由**进行转发。
+
+> lb://serverName是spring cloud  gatway在微服务中自动为我们创建的负载均衡uri
+
+```yml
+spring:
+  application:
+    name: cloud-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: payment_routh
+          #服务动态路由，lb指开启负载均衡
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/get/**
+        - id: payment_routh2
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/lb/**
+      discovery:
+        locator:
+          enabled: true  #开启从注册中心动态生成路由的功能，用微服务名进行路由
+```
+
+
+
+### Predicate
+
+路由匹配时，可以进行 Predicate 操作进行判断。
+
+1. After Route Predicate 
+
+   在指定时间之后才可以进行路由访问。
+
+   ```yml
+             predicates:
+               - Path=/payment/lb/**
+               - After=2022-06-08T23:26:09.468+08:00[Asia/Shanghai]
+   ```
+
+2. Before Route Predicate 
+
+3. Between Route Predicate 
+
+4. Cookie Route Predicate 
+
+   ```yml
+             predicates:
+               - Path=/payment/get/**
+               - After=2022-06-07T23:26:09.468+08:00[Asia/Shanghai]
+               - Cookie=username,yyds
+   ```
+
+   
 
 
 
