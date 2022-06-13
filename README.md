@@ -831,7 +831,7 @@ public class GatewayGlobalFilter implements GlobalFilter {
 
 ## 参考链接
 
-- [2020周阳SpringCloud完整版笔记--一](https://www.cnblogs.com/dataoblogs/p/14121874.html)
+- [2020周阳SpringCloud完整版笔记一](https://www.cnblogs.com/dataoblogs/p/14121874.html)
 
 - [Hystrix-深入 Hystrix 断路器执行原理](https://zhuanlan.zhihu.com/p/84403081)
 
