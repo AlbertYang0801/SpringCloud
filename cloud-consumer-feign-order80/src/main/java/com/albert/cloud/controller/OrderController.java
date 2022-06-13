@@ -33,4 +33,9 @@ public class OrderController {
        return paymentFeignService.getFeignTimeOut();
     }
 
+    @GetMapping("/zipkin")
+    public String zipkin(){
+        return paymentFeignService.zipkin();
+    }
+
 }
