@@ -659,11 +659,15 @@ Hystrix 是用来处理分布式系统容错的组件，Hystrix 能够保证在�
 
 Gateway 是 Spring 社区提供的网关组件，提供了反向代理、鉴权、熔断、日志监控、路由转发等功能。
 
+![自己手绘的](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220613180031.awebp)
+
 
 
 ### 工作流程
 
-![image-20220607000947516](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220607000947516.png)
+当用户发出请求达到 `GateWay` 之后，会通过一些匹配条件，定位到真正的服务节点，并且在这个转发过程前后，进行一些细粒度的控制，其中 **Predicate（断言）** 是我们的匹配条件，**Filter** 是一个拦截器，有了这两点，再加上URL，就可以实现一个具体的路由，核心思想：**路由转发+执行过滤器链**。
+
+![img](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220613180015.awebp)
 
 ### 实现方式
 
@@ -766,5 +770,10 @@ spring:
 
 ## 参考链接
 
-- [https://www.cnblogs.com/dataoblogs/p/14121874.html](https://www.cnblogs.com/dataoblogs/p/14121874.html)
+- [2020周阳SpringCloud完整版笔记--一](https://www.cnblogs.com/dataoblogs/p/14121874.html)
+
 - [Hystrix-深入 Hystrix 断路器执行原理](https://zhuanlan.zhihu.com/p/84403081)
+
+- [这篇SpringCloud GateWay 详解，你用的到](https://juejin.cn/post/7107911617601339423)
+
+  
