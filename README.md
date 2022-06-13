@@ -659,6 +659,10 @@ Hystrix 是用来处理分布式系统容错的组件，Hystrix 能够保证在�
 
 Gateway 是 Spring 社区提供的网关组件，提供了反向代理、鉴权、熔断、日志监控、路由转发等功能。
 
+- 路由 - route
+- 断言 - Predicate 
+- 过滤器 - Filter
+
 ![自己手绘的](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220613180031.awebp)
 
 
@@ -762,7 +766,64 @@ spring:
                - Cookie=username,yyds
    ```
 
-   
+
+
+
+### 路由过滤器
+
+路由过滤器可以在路由请求之前和请求之后进行功能性的增强。
+
+- 对路由请求进行全局日志打印。
+- 统一认证拦截。
+
+Gateway 内置了很多过滤器，还可以自定义过滤器。
+
+**自定义过滤器的实现:**
+
+```java
+@Component
+@Order(value = 1)
+@Slf4j
+public class GatewayGlobalFilter implements GlobalFilter {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        //拦截所有用户请求，判断用户名是否为空
+        ServerHttpRequest request = exchange.getRequest();
+        //请求参数
+        String id = request.getQueryParams().getFirst("id");
+        //请求头
+        String name = request.getHeaders().getFirst("name");
+        if(StrUtil.isBlank(name)){
+            log.info("name为空，非法用户！");
+            exchange.getResponse().setStatusCode(HttpStatus.NOT_ACCEPTABLE);
+            return exchange.getResponse().setComplete();
+        }
+        return chain.filter(exchange);
+    }
+}
+```
+
+
+
+
+
+## 分布式配置中心
+
+### SpringCloud Config
+
+分布式系统情况下，集中管理配置文件。
+
+若需要修改配置，比如更换数据库链接信息，不需要更换每个服务，只需要更改配置中心中的配置，各个服务中的配置能做到自动更新的效果。
+
+
+
+
+
+## 消息总线
+
+
+
+![img](C:/Users/yjw/AppData/Local/Temp/mindmaster/17231038b236/001/C95A97FD-77C1-4E69-ABCB-54A9631F5463.png)
 
 
 
