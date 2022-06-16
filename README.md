@@ -827,6 +827,66 @@ public class GatewayGlobalFilter implements GlobalFilter {
 
 
 
+## 分布式链路追踪-Sleuth
+
+Sleuth 负载拦截网络请求生成调用数据，发给 zipkin 进行存储和展示。
+
+
+
+### zipkin
+
+- 运行zipkin
+
+  ```java
+  java -jar zipkin-server-2.23.16-exec.jar
+  ```
+
+- 访问 [http://localhost:9411/zipkin/](http://localhost:9411/zipkin/)
+
+
+
+### Sleuth配置
+
+- 依赖
+
+  ```xml
+          <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-zipkin</artifactId>
+          </dependency>
+  ```
+
+- 配置
+
+  ```yml
+  spring:
+    application:
+      name: cloud-payment-service
+  
+    zipkin:
+      base-url: http://localhost:9411
+    sleuth:
+      sampler:
+        #采样率值介于0到1之间，1代表全部采集
+        probability: 1
+  ```
+
+---
+
+
+
+**调用链路展示效果**
+
+![image-20220613233044122](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220613233044122.png)
+
+
+
+### Sleuth链路追踪原理
+
+
+
+
+
 
 
 ## 参考链接
