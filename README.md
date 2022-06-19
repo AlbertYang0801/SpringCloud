@@ -805,33 +805,9 @@ public class GatewayGlobalFilter implements GlobalFilter {
 
 
 
-
-
-## 分布式配置中心
-
-### SpringCloud Config
-
-分布式系统情况下，集中管理配置文件。
-
-若需要修改配置，比如更换数据库链接信息，不需要更换每个服务，只需要更改配置中心中的配置，各个服务中的配置能做到自动更新的效果。
-
-
-
-
-
-## 消息总线
-
-
-
-![img](C:/Users/yjw/AppData/Local/Temp/mindmaster/17231038b236/001/C95A97FD-77C1-4E69-ABCB-54A9631F5463.png)
-
-
-
 ## 分布式链路追踪-Sleuth
 
 Sleuth 负载拦截网络请求生成调用数据，发给 zipkin 进行存储和展示。
-
-
 
 ### zipkin
 
@@ -884,6 +860,109 @@ Sleuth 负载拦截网络请求生成调用数据，发给 zipkin 进行存储�
 ### Sleuth链路追踪原理
 
 
+
+
+
+## Nacos
+
+nacos 可以作为注册中心和配置中心。
+
+### 注册中心-Nacos
+
+Nacos 作为注册中心时，支持 CP 和 AP 模式的切换。
+
+![image-20220619185557909](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619185557909.png)
+
+
+
+![image-20220619185547657](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619185547657.png)
+
+
+
+#### CP 模式
+
+保证**数据强一致性**和**分区容忍性**。
+
+CP 模式下支持注册实例的持久化。
+
+像 K8s 中的服务，适用于 CP 模式。需要对服务信息做持久化，保证读取到的服务信息的一致性。
+
+#### AP模式
+
+保证**高可用性**和**分区容忍性**。
+
+AP 模式下注册的服务都是临时实例，不对实例信息做持久化。
+
+
+
+### 配置中心-Nacos
+
+nacos作为配置中心时，在项目初始化时，要保证先从配置中心拉取配置，然后保证项目正常启动。
+
+Spring 加载配置文件存在优先级顺序，bootstrap.yml 和 application.yml 相比，**bootstrap.yml 的优先级更高**。
+
+
+
+#### 配置规则
+
+[Nacos Spring Cloud 快速开始](https://nacos.io/zh-cn/docs/quick-start-spring-cloud.html)
+
+Nacos 的配置功能具有**动态刷新**的功能。
+
+![image-20220619220624415](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619220624415.png)
+
+---
+
+配置流程，注意 ** Data ID** 的配置规则：`${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}`
+
+![image-20220619221032541](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619221032541.png)
+
+![image-20220619221106581](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619221106581.png)
+
+
+
+#### 分类配置
+
+- DataId
+- Group
+- Namespace
+
+### 持久化机制
+
+Nacos 默认使用内置的 derby 数据库，可以配置自定义 MySQL 数据源保存配置信息。
+
+在 Nacos 的 `config` 目录下的 `application.properties` 修改如下内容：
+
+```properties
+spring.datasource.platform=mysql
+
+### Count of DB:
+db.num=1
+
+### Connect URL of DB:
+db.url.0=jdbc:mysql://127.0.0.1:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+db.user.0=root
+db.password.0=123456
+```
+
+
+
+
+
+
+
+### 集群配置
+
+通过负载均衡，实现 Nacos 服务端的反向代理。
+
+![image-20220619225524484](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619225524484.png)
+
+![image-20220619230332763](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619230332763.png)
+
+
+
+1. 使用 docker 搭建 Nacos 集群。注意映射端口和配置文件。
+2. 搭建 nginx，配置转发策略。
 
 
 

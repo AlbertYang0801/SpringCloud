@@ -1,0 +1,4 @@
+#环profile值
+spring:
+  profiles:
+    active: dev
