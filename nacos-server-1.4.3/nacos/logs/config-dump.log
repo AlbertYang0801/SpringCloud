@@ -1,0 +1,28 @@
+2022-06-19 21:50:15,766 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEFAULT_GROUP, taskKey=nacos-config-client-dev.yaml+DEFAULT_GROUP++false+null
+
+2022-06-19 21:56:20,513 INFO [dump-all-ok] nacos-config-client-dev.yaml+DEFAULT_GROUP, 1655646615592, length=38, md5=6517088892bb264bfb8aeee133320458
+
+2022-06-19 21:59:43,173 INFO [dump-all-ok] nacos-config-client-dev.yaml+DEFAULT_GROUP, 1655646615592, length=38, md5=6517088892bb264bfb8aeee133320458
+
+2022-06-19 22:09:55,434 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEFAULT_GROUP, taskKey=nacos-config-client-dev.yaml+DEFAULT_GROUP++false+null
+
+2022-06-19 22:25:43,972 INFO [dump-task] add task. groupKey=nacos-config-client-test.yaml+DEFAULT_GROUP, taskKey=nacos-config-client-test.yaml+DEFAULT_GROUP++false+null
+
+2022-06-19 22:28:48,208 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEV_GROUP, taskKey=nacos-config-client-dev.yaml+DEV_GROUP++false+null
+
+2022-06-19 22:29:01,584 INFO [dump-task] add task. groupKey=nacos-config-client-test.yaml+TEST_GROUP, taskKey=nacos-config-client-test.yaml+TEST_GROUP++false+null
+
+2022-06-19 22:29:46,730 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+TEST_GROUP, taskKey=nacos-config-client-dev.yaml+TEST_GROUP++false+null
+
+2022-06-19 22:29:55,615 INFO [dump-task] add task. groupKey=nacos-config-client-test.yaml+TEST_GROUP, taskKey=nacos-config-client-test.yaml+TEST_GROUP++false+null
+
+2022-06-19 22:39:32,907 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEFAULT_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb, taskKey=nacos-config-client-dev.yaml+DEFAULT_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb+false+null
+
+2022-06-19 22:39:42,775 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEV_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb, taskKey=nacos-config-client-dev.yaml+DEV_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb+false+null
+
+2022-06-19 22:39:49,061 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEFAULT_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb, taskKey=nacos-config-client-dev.yaml+DEFAULT_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb+false+null
+
+2022-06-19 22:58:21,266 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEV_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb, taskKey=nacos-config-client-dev.yaml+DEV_GROUP+4a57edb9-f77f-43f5-b84b-7ee76bdeb8bb+false+null
+
+2022-06-19 23:00:45,074 INFO [dump-task] add task. groupKey=nacos-config-client-dev.yaml+DEV_GROUP+00f056fa-f14a-4784-b358-090ef0fdcdac, taskKey=nacos-config-client-dev.yaml+DEV_GROUP+00f056fa-f14a-4784-b358-090ef0fdcdac+false+null
+
