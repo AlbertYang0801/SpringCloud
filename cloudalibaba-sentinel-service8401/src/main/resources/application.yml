@@ -20,7 +20,9 @@ spring:
             groupId: DEFAULT_GROUP
             data_type: json
             rule_type: flow
-
+      #关闭context整合
+      filter:
+        enabled: false
 management:
   endpoints:
     web:

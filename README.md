@@ -913,7 +913,7 @@ Nacos 的配置功能具有**动态刷新**的功能。
 
 ---
 
-配置流程，注意 ** Data ID** 的配置规则：`${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}`
+配置流程，注意 **Data ID** 的配置规则：`${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}`
 
 ![image-20220619221032541](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619221032541.png)
 
@@ -963,6 +963,104 @@ db.password.0=123456
 
 1. 使用 docker 搭建 Nacos 集群。注意映射端口和配置文件。
 2. 搭建 nginx，配置转发策略。
+
+
+
+## Sentinal
+
+[Sentinal 官方文档](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D)
+
+
+
+### 启动命令
+
+Sentinal 其它端口启动
+
+```shell
+java -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.7.1.jar
+```
+
+
+
+### 限流规则
+
+![](https://s2.loli.net/2022/07/18/br4ehKujQoYmWLD.png)
+
+#### 限流类型
+
+- QPS
+
+  QPS配置时，1秒内的请求达到上限后，会进行限流。
+
+- 线程数
+
+  当调用接口的线程达到阈值的时候，会进行限流。
+
+#### 流控模式
+
+- 直接
+
+  达到限流条件后，直接限流。
+
+- 关联
+
+  当关联的资源达到阈值时，限流自己。B 达到阈值，限流 A。
+
+  ![image-20220718203246914](https://s2.loli.net/2022/07/18/DJmsCE7zKpbVkxA.png)
+
+  
+
+  **使用postman并发测试接口**
+
+  ![image-20220718205455950](https://s2.loli.net/2022/07/18/JCSgmMGE6Fs4bfd.png)
+
+- 链路
+
+  当多个请求调用了相同的微服务时，可以针对某个请求进行限流。
+
+  比如有两个接口 `/order/save` 和 `/order/query` 同时调用了 `goods` 接口，针对其中一个接口进行限流。
+
+  ![image-20220718203027471](https://s2.loli.net/2022/07/18/DJmsCE7zKpbVkxA.png)
+
+  
+
+
+#### 流控效果
+
+- 快速失败
+
+  达到阈值，立即拒绝并抛出异常，是**默认的处理方式**。
+
+  ```java
+  2022-07-18 21:17:38.764 ERROR 24712 --- [nio-8401-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.reflect.UndeclaredThrowableException] with root cause
+  
+  com.alibaba.csp.sentinel.slots.block.flow.FlowException: null
+  ```
+
+- Warm Up
+
+  **预热模式**，对超出阈值的请求同样是拒绝并抛出异常，但这种模式阈值能够动态改变，从一个较小值逐渐增大到最大阈值。
+
+  ![image-20220718212349214](https://s2.loli.net/2022/07/18/mocHSujvNGkWBsn.png)
+
+  预热方式是为了保护系统不被大流量击垮，逐渐调大阈值来达到保护系统的目的。
+
+- 排队等待
+
+  ![img](https://s2.loli.net/2022/07/18/yiShNGu8BY47feA.png)
+
+  排队等待的效果是 QPS的效果，1s1次请求。
+
+  ![image-20220718220615395](https://s2.loli.net/2022/07/18/aMUIJrbq18NLzFD.png)
+
+
+
+
+
+
+
+
+
 
 
 
