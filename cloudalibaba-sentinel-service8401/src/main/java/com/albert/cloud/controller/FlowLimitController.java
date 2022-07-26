@@ -35,11 +35,21 @@ public class FlowLimitController {
         return "testC 测试RT-------";
     }
 
+    @RequestMapping("testServiceDemotion")
+    public String testServiceDemotion(){
+        try {
+            TimeUnit.MICROSECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "测试服务降级-------";
+    }
+
     @RequestMapping("testD")
     public String testD(){
         System.out.println("testD 异常比例测试");
         int age = 10/0;
-        return "testD-------";
+        return "测试异常比例-------";
     }
 
     @RequestMapping("testE")

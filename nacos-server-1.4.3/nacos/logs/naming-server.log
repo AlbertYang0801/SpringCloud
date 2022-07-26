@@ -1,85 +1,22 @@
-2022-07-18 20:21:50,805 INFO GlobalConfig{taskDispatchPeriod=2000, batchSyncKeyCount=1000, syncRetryDelay=5000, dataWarmup=false, expireInstance=true, loadDataRetryDelayMillis=30000}
+2022-07-24 13:49:27,295 INFO GlobalConfig{taskDispatchPeriod=2000, batchSyncKeyCount=1000, syncRetryDelay=5000, dataWarmup=false, expireInstance=true, loadDataRetryDelayMillis=30000}
 
-2022-07-18 20:21:51,441 INFO open empty service auto clean job, initialDelay : 50000 ms, period : 30000 ms
+2022-07-24 13:49:27,922 INFO open empty service auto clean job, initialDelay : 50000 ms, period : 30000 ms
 
-2022-07-18 20:21:51,442 INFO listen for service meta change
+2022-07-24 13:49:27,923 INFO listen for service meta change
 
-2022-07-18 20:21:55,786 INFO [NACOS-DISTRO] healthy server list changed, old: [192.168.0.104:8848], new: [192.168.0.104:8848]
+2022-07-24 13:49:32,278 INFO [NACOS-DISTRO] healthy server list changed, old: [192.168.0.104:8848], new: [192.168.0.104:8848]
 
-2022-07-18 20:21:57,018 WARN [CLIENT-BEAT] The instance has been removed for health mechanism, perform data compensation operations, beat: {"load":0.0,"cpu":0.0,"rt":0.0,"qps":0.0,"mem":0.0,"port":8401,"ip":"192.168.0.104","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","cluster":"DEFAULT","weight":1.0,"ephemeral":true,"metadata":{"preserved.register.source":"SPRING_CLOUD"}}, serviceName: DEFAULT_GROUP@@cloudalibaba-sentinel-service
+2022-07-24 13:50:36,101 INFO creating empty service public:DEFAULT_GROUP@@cloudalibaba-sentinel-service
 
-2022-07-18 20:21:57,040 INFO creating empty service public:DEFAULT_GROUP@@cloudalibaba-sentinel-service
+2022-07-24 13:50:36,272 INFO [NEW-SERVICE] {"name":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","protectThreshold":0.0,"groupName":"DEFAULT_GROUP","metadata":{},"finalizeCount":0,"owners":[],"resetWeight":false,"enabled":true,"selector":{"type":"none"},"namespaceId":"public","ipDeleteTimeout":30000,"lastModifiedMillis":1658641836103,"checksum":"521ff0d2e1043ca12af0499887460327","clusterMap":{},"empty":true}
 
-2022-07-18 20:21:57,208 INFO [NEW-SERVICE] {"name":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","protectThreshold":0.0,"groupName":"DEFAULT_GROUP","metadata":{},"finalizeCount":0,"owners":[],"resetWeight":false,"enabled":true,"selector":{"type":"none"},"namespaceId":"public","ipDeleteTimeout":30000,"lastModifiedMillis":1658146917041,"checksum":"521ff0d2e1043ca12af0499887460327","clusterMap":{},"empty":true}
+2022-07-24 13:50:36,276 WARN cluster: DEFAULT not found, ip: {"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658641836083,"marked":false,"app":"cloudalibaba-sentinel-service","instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}, will create new cluster with default configuration.
 
-2022-07-18 20:21:57,214 WARN cluster: DEFAULT not found, ip: {"ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658146917040,"marked":false,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}, will create new cluster with default configuration.
+2022-07-24 13:50:36,279 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658641836083,"marked":false,"app":"cloudalibaba-sentinel-service","instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
 
-2022-07-18 20:21:57,219 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658146917040,"marked":false,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
+2022-07-24 22:04:16,255 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[]}
 
-2022-07-18 20:22:27,753 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[]}
+2022-07-24 22:04:34,246 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658671474245,"marked":false,"app":"cloudalibaba-sentinel-service","instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
 
-2022-07-18 20:22:43,232 WARN [CLIENT-BEAT] The instance has been removed for health mechanism, perform data compensation operations, beat: {"load":0.0,"cpu":0.0,"rt":0.0,"qps":0.0,"mem":0.0,"port":8401,"ip":"192.168.0.104","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","cluster":"DEFAULT","weight":1.0,"ephemeral":true,"metadata":{"preserved.register.source":"SPRING_CLOUD"}}, serviceName: DEFAULT_GROUP@@cloudalibaba-sentinel-service
-
-2022-07-18 20:22:43,232 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658146963232,"marked":false,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
-
-2022-07-18 20:22:43,233 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658146963232,"marked":false,"app":"DEFAULT","instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
-
-2022-07-18 20:44:53,369 INFO GlobalConfig{taskDispatchPeriod=2000, batchSyncKeyCount=1000, syncRetryDelay=5000, dataWarmup=false, expireInstance=true, loadDataRetryDelayMillis=30000}
-
-2022-07-18 20:44:53,884 INFO open empty service auto clean job, initialDelay : 50000 ms, period : 30000 ms
-
-2022-07-18 20:44:53,885 INFO listen for service meta change
-
-2022-07-18 20:44:56,777 WARN [NamingServerHttpClientManager] Start destroying HTTP-Client
-
-2022-07-18 20:44:56,787 WARN [NamingServerHttpClientManager] Destruction of the end
-
-2022-07-18 20:45:02,880 ERROR [HEALTH-CHECK] error while processing NIO task
-
-java.lang.InterruptedException: null
-	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.reportInterruptAfterWait(AbstractQueuedSynchronizer.java:2014)
-	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2088)
-	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:467)
-	at com.alibaba.nacos.naming.healthcheck.TcpSuperSenseProcessor.processTask(TcpSuperSenseProcessor.java:137)
-	at com.alibaba.nacos.naming.healthcheck.TcpSuperSenseProcessor.run(TcpSuperSenseProcessor.java:154)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:748)
-2022-07-18 20:45:11,464 INFO GlobalConfig{taskDispatchPeriod=2000, batchSyncKeyCount=1000, syncRetryDelay=5000, dataWarmup=false, expireInstance=true, loadDataRetryDelayMillis=30000}
-
-2022-07-18 20:45:12,037 INFO open empty service auto clean job, initialDelay : 50000 ms, period : 30000 ms
-
-2022-07-18 20:45:12,037 INFO listen for service meta change
-
-2022-07-18 20:45:14,534 WARN [CLIENT-BEAT] The instance has been removed for health mechanism, perform data compensation operations, beat: {"load":0.0,"cpu":0.0,"rt":0.0,"qps":0.0,"mem":0.0,"port":8401,"ip":"192.168.0.104","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","cluster":"DEFAULT","weight":1.0,"ephemeral":true,"metadata":{"preserved.register.source":"SPRING_CLOUD"}}, serviceName: DEFAULT_GROUP@@cloudalibaba-sentinel-service
-
-2022-07-18 20:45:14,542 INFO creating empty service public:DEFAULT_GROUP@@cloudalibaba-sentinel-service
-
-2022-07-18 20:45:14,561 INFO [NEW-SERVICE] {"name":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","protectThreshold":0.0,"groupName":"DEFAULT_GROUP","metadata":{},"finalizeCount":0,"owners":[],"resetWeight":false,"enabled":true,"selector":{"type":"none"},"namespaceId":"public","ipDeleteTimeout":30000,"lastModifiedMillis":1658148314544,"checksum":"521ff0d2e1043ca12af0499887460327","clusterMap":{},"empty":true}
-
-2022-07-18 20:45:14,567 WARN cluster: DEFAULT not found, ip: {"ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658148314542,"marked":false,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}, will create new cluster with default configuration.
-
-2022-07-18 20:45:14,570 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658148314542,"marked":false,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
-
-2022-07-18 20:45:15,752 WARN [CLIENT-BEAT] The instance has been removed for health mechanism, perform data compensation operations, beat: {"load":0.0,"cpu":0.0,"rt":0.0,"qps":0.0,"mem":0.0,"port":3377,"ip":"192.168.0.104","serviceName":"DEFAULT_GROUP@@nacos-config-client","cluster":"DEFAULT","weight":1.0,"ephemeral":true,"metadata":{"preserved.register.source":"SPRING_CLOUD"}}, serviceName: DEFAULT_GROUP@@nacos-config-client
-
-2022-07-18 20:45:15,752 INFO creating empty service public:DEFAULT_GROUP@@nacos-config-client
-
-2022-07-18 20:45:15,753 INFO [NEW-SERVICE] {"name":"DEFAULT_GROUP@@nacos-config-client","protectThreshold":0.0,"groupName":"DEFAULT_GROUP","metadata":{},"finalizeCount":0,"owners":[],"resetWeight":false,"enabled":true,"selector":{"type":"none"},"namespaceId":"public","ipDeleteTimeout":30000,"lastModifiedMillis":1658148315752,"checksum":"efc497af48867d79f6a82e441439e212","clusterMap":{},"empty":true}
-
-2022-07-18 20:45:15,753 WARN cluster: DEFAULT not found, ip: {"ip":"192.168.0.104","port":3377,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@nacos-config-client","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658148315752,"marked":false,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}, will create new cluster with default configuration.
-
-2022-07-18 20:45:15,753 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@nacos-config-client, value: {"instanceList":[{"instanceId":"192.168.0.104#3377#DEFAULT#DEFAULT_GROUP@@nacos-config-client","ip":"192.168.0.104","port":3377,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@nacos-config-client","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658148315752,"marked":false,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
-
-2022-07-18 20:45:16,449 INFO [NACOS-DISTRO] healthy server list changed, old: [192.168.0.104:8848], new: [192.168.0.104:8848]
-
-2022-07-18 20:49:44,351 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658148584351,"marked":false,"app":"DEFAULT","instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
-
-2022-07-18 21:14:19,377 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[]}
-
-2022-07-18 21:14:39,004 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[{"instanceId":"192.168.0.104#8401#DEFAULT#DEFAULT_GROUP@@cloudalibaba-sentinel-service","ip":"192.168.0.104","port":8401,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@cloudalibaba-sentinel-service","metadata":{"preserved.register.source":"SPRING_CLOUD"},"lastBeat":1658150079004,"marked":false,"app":"cloudalibaba-sentinel-service","instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ipDeleteTimeout":30000}]}
+2022-07-24 22:47:39,021 INFO [NACOS-RAFT] datum is changed, key: com.alibaba.nacos.naming.iplist.ephemeral.public##DEFAULT_GROUP@@cloudalibaba-sentinel-service, value: {"instanceList":[]}
 
