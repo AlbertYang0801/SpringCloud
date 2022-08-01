@@ -972,11 +972,25 @@ db.password.0=123456
 
 ### 启动命令
 
-Sentinal 其它端口启动
+- Sentinal 其它端口启动
 
-```shell
-java -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.7.1.jar
-```
+  ```java
+  java -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.7.1.jar
+  ```
+
+- IDEA
+
+  ![image-20220801215522180](C:\Users\yjw\AppData\Roaming\Typora\typora-user-images\image-20220801215522180.png)
+
+  ```java
+  -Dserver.port=8888
+  -Dcsp.sentinel.dashboard.server=localhost:8888
+  -Dproject.name=sentinel-dashboard
+  -jar
+  D:\IdeaWorkSpace\SpringCloud\sentinel\sentinel-dashboard-1.7.1.jar
+  ```
+
+  
 
 ### 限流规则
 

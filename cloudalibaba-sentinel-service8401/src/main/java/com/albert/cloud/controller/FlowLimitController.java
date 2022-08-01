@@ -66,7 +66,7 @@ public class FlowLimitController {
             @RequestParam(value = "p2",required = false) String p2
     ){
         System.out.println("testHotKey 热点Key--测试");
-        int age = 10/0;
+//        int age = 10/0;
         return "testHotKey-------";
     }
 

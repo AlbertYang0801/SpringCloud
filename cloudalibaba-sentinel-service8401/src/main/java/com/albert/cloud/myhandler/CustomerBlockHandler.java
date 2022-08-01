@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
  * @author yangjunwei
  * @date 2022/8/1 4:56 下午
  */
-@Component
 public class CustomerBlockHandler {
 
     public static CommonResult blockHandlerExce(BlockException blockException){
