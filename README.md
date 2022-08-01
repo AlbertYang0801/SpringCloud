@@ -1127,13 +1127,35 @@ db.password.0=123456
 
 ### 热点key限流
 
+热点规则，能够对某个资源的参数进行限制。
+
+![b68e22d702c646bc84b830767b10af7d](E:\Desktop\b68e22d702c646bc84b830767b10af7d.png)
+
+比如对第1个参数 p1 进行限制，达到指定 QPS 进行限流。若不指定 p1 ，不会触发限流。
+
+```java
+http://localhost:8401/testHotKey?p1=5&p2=1
+```
+
+**参数例外项**
+
+可以针对参数，设置特殊值进行单独限流。
+
+比如设置 p1=5 时，达到指定的 QPS=10 才会触发限流。
+
+![image-20220801222129332](https://s2.loli.net/2022/08/01/cyMWpO79JGEPLfT.png)
 
 
 
 
 
+### @SentinelResource
 
+```
+@SentinelResource(value = "customerBlockHandler",blockHandlerClass = CustomerBlockHandler.class,blockHandler = "blockHandlerExce")
+```
 
+![3d323ed95b024571a83ee5ef0dd220bb](E:\Desktop\3d323ed95b024571a83ee5ef0dd220bb.png)
 
 
 
