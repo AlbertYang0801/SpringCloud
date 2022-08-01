@@ -1114,6 +1114,14 @@ java -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dproject
 
 
 
+
+
+
+
+
+
+
+
 ## 参考链接
 
 - [2020周阳SpringCloud完整版笔记一](https://www.cnblogs.com/dataoblogs/p/14121874.html)
@@ -1121,5 +1129,7 @@ java -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dproject
 - [Hystrix-深入 Hystrix 断路器执行原理](https://zhuanlan.zhihu.com/p/84403081)
 
 - [这篇SpringCloud GateWay 详解，你用的到](https://juejin.cn/post/7107911617601339423)
+
+- [SpringCloud 学习笔记](https://blog.csdn.net/shuai_aaaaaaa/article/details/122550335)
 
   
