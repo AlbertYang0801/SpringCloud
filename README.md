@@ -1155,11 +1155,150 @@ http://localhost:8401/testHotKey?p1=5&p2=1
 @SentinelResource(value = "customerBlockHandler",blockHandlerClass = CustomerBlockHandler.class,blockHandler = "blockHandlerExce")
 ```
 
-![3d323ed95b024571a83ee5ef0dd220bb](E:\Desktop\3d323ed95b024571a83ee5ef0dd220bb.png)
+![3d323ed95b024571a83ee5ef0dd220bb](https://s2.loli.net/2022/08/03/kAKod3IqRaxZB9e.png)
+
+
+
+### Sentinel持久化
+
+默认Sentinel 是没有持久化的，当重启服务后，配置的流控规则就会消失。可以借助 nacos 实现 Sentinel 的持久化。
 
 
 
 
+
+---
+
+## Seata分布式事务
+
+在分布式情况下，一次业务请求需要调用多个系统操作多个数据源时，针对多个数据源操作会产生分布式事务问题。每个系统能够保证各自数据源的一致性问题，但是全部系统数据的一致性问题没法保证。
+
+#### 官网地址
+
+https://seata.io/zh-cn/docs/user/quickstart.html
+
+#### 下载地址
+
+https://seata.io/zh-cn/blog/download.html
+
+### 基础概念
+
+事务ID+三组件
+
+**事务ID**
+
+- Transaction ID(XID)
+
+**三组件**
+
+- TC-事务协调者
+
+  维护全局和分支事务的状态，**驱动全局事务提交或回滚**。
+
+  **为单独部署的服务端。**
+
+- TM-事务管理器
+
+  定义全局事务的范围，开启全局事务，提交或回滚全局事务。
+
+  **嵌入到应用中的 Clinet 客户端。**在代码中加注解的地方对应的就是事务管理器 TM。
+
+- RM
+
+  对应的资源管理器，管理分支事务处理的资源。与 TC 交谈以注册分支事务和报告分支事务的状态，**驱动分支事务的提交或者回滚**。
+
+#### 处理过程
+
+![image-20220803215355375](https://s2.loli.net/2022/08/03/xBsXgnyERUbmfqp.png)
+
+
+
+![img](https://s2.loli.net/2022/08/03/BGueWgd9srjXbiA.png)
+
+
+
+**TM-事务管理器**
+
+在需要开启全局事务的地方，加注解。
+
+```java
+@GlobalTransactional(name="fsp-create-order",rollbackFor = Exception.class)
+```
+
+
+
+#### 分布式事务的执行流程
+
+1. TM 开启分布式事务，TM 会向 TC（seata服务器） 注册全局事务记录。
+2. RM 向 TC 汇报事务执行情况。
+3. TM 结束分布式事务，事务一阶段结束。TM 会通知 TC 提交、回滚分布式事务。
+4. TC 汇总各个系统的事务信息，决定分布式事务是整体提交还是整体回滚。
+5. TC 通知所有 RM 提交/回滚资源，事务二阶段结束。
+
+----
+
+### AT模式的两阶段提交验证
+
+[Seata 是什么?](https://seata.io/zh-cn/docs/overview/what-is-seata.html)
+
+#### 一阶段
+
+![image-20220805001628241](https://s2.loli.net/2022/08/05/Iva2iM6ODZ7zHKW.png)
+
+1. **TC**
+
+   seata作为 TC (事务协调者)，记录了 TM 开启分布式事务时，生成的全局事务ID - XID。
+
+​		其中包含了每个系统分支的状态信息，比如分支ID、分支类型（AT）、资源ID（数据库地址）、客户端 ID、行锁信息等。
+​		![image-20220805000928286](https://s2.loli.net/2022/08/05/vLScd5rXTo98I3K.png)
+
+2. **RM**
+
+​	每个分支的资源管理器对应数据库, 在 undo_log 中记录了对应分支的本地事务的信息。
+
+​	包含全局事务ID - XID、分支ID、rollback_info。
+
+ ![image-20220805000417325](https://s2.loli.net/2022/08/05/crtCDKsiqkzSE7y.png)
+
+​	其中 **rollback_info** 中包含了一阶段事务中, 对应更新数据的 **before_image** 和 **after_image** 信息。
+
+> 数据的  *before_image* 和 *after_image* 作用于二阶段的事务回滚。
+
+
+
+#### 二阶段
+
+在一阶段中，每个分支的事务执行完毕，并向 TC 上报事务的执行结果。由 TC 根据结果决定全体提交还是全体回滚。
+
+- **全体提交**
+
+  在全体提交时，由于一阶段各个分支已经完成事务的提交，所以全体提交时只需要将一阶段保存的快照数据和行锁删除，完成数据清理就算全体事务提交成功。
+
+  ![](https://s2.loli.net/2022/08/05/SaWqPr93uebEdim.png)
+
+- **全体回滚**
+
+  由于一阶段事务未全体执行成功，导致二阶段进行回滚。
+
+  各个分支回滚的方式是通过一阶段记录的 undo_log 中记录的 rollback_info 数据进行回滚。
+
+  其中包含了 **before_image** （更新前数据）和 **after_image**（更新后数据）,其中用更新后数据来和数据库数据作校验，若一致说明数据正常，可以还原到更新前数据。
+
+  （类似于乐观锁）若数据库数据和  **after_image**（更新后数据），说明出现了脏数据（人工干预处理）。
+
+  > 疑问：在操作数据的时候，是加了行锁的，所以不应该出现脏数据的问题。
+
+  ```sql
+  update table set data = before_image where data = after_image
+  ```
+
+  注意更新的方式使用的是 **反向补偿**。不同于传统的 redo_log （重做日志刷新到磁盘）方式，反向补偿是通过一条 update 语句来实现数据的回滚的（确定回滚语句的主键，根据一阶段记录的 before_image 数据进行更新实现回滚）。
+
+  最终删除掉一阶段保存的快照信息和行锁即可。
+
+  
+
+  ![image-20220805002114986](https://s2.loli.net/2022/08/05/3iT6csXqPS4hyNt.png)
 
 
 
