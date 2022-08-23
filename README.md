@@ -1239,7 +1239,9 @@ https://seata.io/zh-cn/blog/download.html
 
 ### AT模式的两阶段提交验证
 
-[Seata 是什么?](https://seata.io/zh-cn/docs/overview/what-is-seata.html)
+[Seata AT 模式](http://seata.io/zh-cn/docs/dev/mode/at-mode.html)
+
+
 
 #### 一阶段
 
