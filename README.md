@@ -19,11 +19,11 @@
 
 #### 系统架构
 
-![image-20220506215158478](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506215158478.png)
+![image-20220506215158478](https://s2.loli.net/2025/06/10/fi8hrZWlNDRYOFG.png)
 
 #### 服务端和客户端
 
-![image-20220506220354548](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220506220354548.png)
+![image-20220506220354548](https://s2.loli.net/2025/06/10/tUlMZqxnWsbPm9w.png)
 
 **服务端**
 
@@ -59,9 +59,7 @@
 
    eureka正常运行，客户端正常注册之后，访问eureka服务端地址（Ip:Port），即可看到服务列表。
 
-   ![image-20220507000000951](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220507000000951.png)
-
-   
+   ![image-20220507000000951](https://s2.loli.net/2025/06/10/DhWG4Nu5oRKryHt.png)
 
 **客户端**
 
@@ -155,7 +153,7 @@ eureka:
 
    > 使用 RestTemplateCustomizer 对所有标注了@LoadBalanced的RestTemplate Bean 添加了一个 LoadBalancerInterceptor 拦截器。利用 RestTempllate 的拦截器，spring可以对restTemplate bean进行定制，加入loadbalance拦截器进行 ip:port 的替换，也就是将请求的地址中的服务逻辑名转为具体的服务地址。
 
-![image-20220508182516351](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508182516.png)
+![20220508182516](https://s2.loli.net/2025/06/10/G4uyv2dOYXqsnJL.png)
 
 #### 服务发现-Discovery
 
@@ -176,7 +174,7 @@ eureka:
     }
 ```
 
-![image-20220508183715557](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220508183715.png)
+![20220508183715](https://s2.loli.net/2025/06/10/4zr7lMdNWns8eA3.png)
 
 #### 心跳保护机制
 
@@ -202,9 +200,7 @@ eureka:
 
 **该机制默认开启**，源码默认为 true。
 
-![image-20220508212422983](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220508212422983.png)
-
-
+![image-20220508212422983](https://s2.loli.net/2025/06/10/3ou9eUqEJzQcrlX.png)
 
 **客户端心跳配置**
 
@@ -247,7 +243,7 @@ eureka:
 
 ### 2. Zookeeper
 
-![image-20220509164722758](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164722758.png)
+![image-20220509164722758](https://s2.loli.net/2025/06/10/5vbxzlVi2MKRQ3e.png)
 
 **注册进 Zookeeper 的服务节点是临时节点还是持久节点？**
 
@@ -255,7 +251,7 @@ eureka:
 
 *当 Zookeeper 服务端收不到客户端发来的心跳时，会将客户端信息删除。假如该客户端重新加入，则重新生成服务节点。*
 
-![image-20220509164837290](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509164837290.png)
+![image-20220509164837290](https://s2.loli.net/2025/06/10/NvDp12qghZknaGo.png)
 
 ### 3. consul
 
@@ -305,7 +301,7 @@ spring:
 
 注册成功访问管理页面可以看到服务信息。
 
-![image-20220509175912577](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509175912577.png)
+![image-20220509175912577](https://s2.loli.net/2025/06/10/WAKc7aJkdIXB9UR.png)
 
 #### 服务发现
 
@@ -335,7 +331,7 @@ spring:
 - A: Availability(可用性)
 - P: Parttition tolerance(分区容错性)
 
-![image-20220509230023366](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220509230023366.png)
+![image-20220509230023366](https://s2.loli.net/2025/06/10/HsFUdgEpG5PLvNY.png)
 
 #### 各个组件的类型
 
@@ -393,9 +389,7 @@ Ribbon 的主要功能就是 **客户端的服务调用和负载均衡**。
 
 ### Ribbon负载均衡的策略
 
-![image-20220525140307612](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220525140307.png)
-
-
+![20220525140307](https://s2.loli.net/2025/06/10/WKOhdmC1RFSlP6q.png)
 
 ### 实现轮询算法
 
@@ -473,11 +467,11 @@ public String getPaymentUrl() {
 
 Feign是一个声明式WebService客户端。使用Feign能让编写WebService客户端更加简单。
 
-定义一个服务接口然后在上面添加注解。Feign也能支持可拔插式的编码器和解码器。Spring Cloud对Feign进行了封装，使其能够支持SpringMVC标准注解和HttpMessageConverters。Feign可以与Eureka和Ribbon组合使用完成负载均衡。
+定义一个服务接口然后在上面添加注解。Feign也能支持可拔插式的编码器和解码器。Spring Cloud对Feign进行了封装，使其能够支持SpringMVC标准注解和`HttpMessageConverters`。Feign可以与Eureka和Ribbon组合使用完成负载均衡。
 
 Feign旨在使Java Http客户端变得更加容易。
 
-前面在使用Ribbon+RestTemplate时，利用RestTemplate对Http请求做封装处理，形成一套模板化的调用方法。但是在实际开发中，由于对服务依赖的调用可能不止一处，往往一个接口会被多处调用。所以，Feign在此基础上做了进一步的封装，由他来帮助我们定义和实现接口。在Feign的实现下，我们只需要使用注解配置接口，即可完成对服务提供方的接口绑定，简化了使用Spring Cloud Ribbon时，自己封装服务调用的工作量。
+前面在使用`Ribbon`+`RestTemplate` 时，利用 `RestTemplate` 对 `Http `请求做封装处理，形成一套模板化的调用方法。但是在实际开发中，由于对服务依赖的调用可能不止一处，往往一个接口会被多处调用。所以，Feign在此基础上做了进一步的封装，由他来帮助我们定义和实现接口。在Feign的实现下，我们只需要使用注解配置接口，即可完成对服务提供方的接口绑定，简化了使用 Spring Cloud Ribbon时，自己封装服务调用的工作量。
 
 默认Feign集成了Ribbon。
 
@@ -600,7 +594,9 @@ Hystrix 是用来处理分布式系统容错的组件，Hystrix 能够保证在�
 
   而断路器开启时间到达5s后，变更状态为 Half-Open (半开) 状态，允许一个请求转发到下游服务检测下游服务是否正常，若下游服务正常，断路器 closed（关闭）。否则继续 open（开启），继续等待下一个周期。
 
-  ![image-20220606230013329](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220606230013329.png)
+  
+  
+  ![image-20220606230013329](https://s2.loli.net/2025/06/10/D5zH6AYGarFxodT.png)
   
   
 
@@ -622,21 +618,21 @@ Hystrix 是用来处理分布式系统容错的组件，Hystrix 能够保证在�
     }
 ```
 
-服务熔断测试效果
+服务熔断测试效果：
 
->正常调用：http://localhost/order/info/circuit/1
->
->- hystrix-PaymentServiceImpl-10 成功调用，流水号是：6c23fe7b0ee645d89b6fa5422246f0b3\
->
->错误调用：http://localhost/order/info/circuit/-111
->
->- hystrix-PaymentServiceImpl-10-----------服务端服务熔断触发----ERROR-----111
->
->多次错误调用，触发断路器之后：
->
->错误请求：hystrix-PaymentServiceImpl-10-----------服务端服务熔断触发----ERROR-----111
->
->正常请求：http-nio-8001-exec-9-----------服务端服务熔断触发----ERROR----3
+- 正常调用：http://localhost/order/info/circuit/1
+
+  hystrix-PaymentServiceImpl-10 成功调用，流水号是：6c23fe7b0ee645d89b6fa5422246f0b3\
+
+- 错误调用：http://localhost/order/info/circuit/-111		
+
+​		hystrix-PaymentServiceImpl-10-----------服务端服务熔断触发----ERROR-----111
+
+多次错误调用，触发断路器之后：
+
+- 错误请求：hystrix-PaymentServiceImpl-10-----------服务端服务熔断触发----ERROR-----111
+
+- 正常请求：http-nio-8001-exec-9-----------服务端服务熔断触发----ERROR----3
 
 可以看到触发断路器之后，不管正常还是异常请求都会触发 fallback 机制。
 
@@ -661,15 +657,13 @@ Gateway 是 Spring 社区提供的网关组件，提供了反向代理、鉴权�
 - 断言 - Predicate 
 - 过滤器 - Filter
 
-![自己手绘的](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220613180031.awebp)
-
-
+![image-20250610164114195](https://s2.loli.net/2025/06/10/HahOYw2PkNC8ebg.png)
 
 ### 工作流程
 
 当用户发出请求达到 `GateWay` 之后，会通过一些匹配条件，定位到真正的服务节点，并且在这个转发过程前后，进行一些细粒度的控制，其中 **Predicate（断言）** 是我们的匹配条件，**Filter** 是一个拦截器，有了这两点，再加上URL，就可以实现一个具体的路由，核心思想：**路由转发+执行过滤器链**。
 
-![img](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/20220613180015.awebp)
+![image-20250610164138290](https://s2.loli.net/2025/06/10/AOt9Shg6MHqfWDz.png)
 
 ### 实现方式
 
@@ -712,7 +706,7 @@ Gateway 是 Spring 社区提供的网关组件，提供了反向代理、鉴权�
 
 默认情况下 Gateway 会根据注册中心注册的服务列表，以注册中心上注册的**微服务名称创建动态路由**进行转发。
 
-> lb://serverName是spring cloud  gatway在微服务中自动为我们创建的负载均衡uri
+> lb://serverName 是spring cloud  gatway在微服务中自动为我们创建的负载均衡uri
 
 ```yml
 spring:
@@ -851,11 +845,7 @@ Sleuth 负载拦截网络请求生成调用数据，发给 zipkin 进行存储�
 
 **调用链路展示效果**
 
-![image-20220613233044122](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220613233044122.png)
-
-
-
-### Sleuth链路追踪原理
+![image-20220613233044122](https://s2.loli.net/2025/06/10/qCoLXGY8xZSAugK.png)
 
 
 
@@ -869,13 +859,11 @@ nacos 可以作为注册中心和配置中心。
 
 Nacos 作为注册中心时，支持 CP 和 AP 模式的切换。
 
-![image-20220619185557909](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619185557909.png)
+![image-20220619185557909](https://s2.loli.net/2025/06/10/fLok9zXP1meBbyR.png)
 
 
 
-![image-20220619185547657](https://cdn.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619185547657.png)
-
-
+![image-20220619185547657](https://s2.loli.net/2025/06/10/wMtYOkopgivjl6G.png)
 
 #### CP 模式
 
@@ -907,15 +895,17 @@ Spring 加载配置文件存在优先级顺序，bootstrap.yml 和 application.y
 
 Nacos 的配置功能具有**动态刷新**的功能。
 
-![image-20220619220624415](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619220624415.png)
+![image-20220619220624415](https://s2.loli.net/2025/06/10/rnFytIwTEPMdKxL.png)
 
 ---
 
 配置流程，注意 **Data ID** 的配置规则：`${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}`
 
-![image-20220619221032541](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619221032541.png)
+![image-20220619221032541](https://s2.loli.net/2025/06/10/GwqTZmf3VXYs6AU.png)
 
-![image-20220619221106581](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619221106581.png)
+
+
+![image-20220619221106581](https://s2.loli.net/2025/06/10/xw9jsETf1no8FMI.png)
 
 
 
@@ -953,11 +943,9 @@ db.password.0=123456
 
 通过负载均衡，实现 Nacos 服务端的反向代理。
 
-![image-20220619225524484](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619225524484.png)
+![image-20220619225524484](https://s2.loli.net/2025/06/10/hvZknG5iFmzDEoC.png)
 
-![image-20220619230332763](https://fastly.jsdelivr.net/gh/AlbertYang0801/pic-bed@main/img/image-20220619230332763.png)
-
-
+![image-20220619230332763](https://s2.loli.net/2025/06/10/itTsA72k3lR4XQj.png)
 
 1. 使用 docker 搭建 Nacos 集群。注意映射端口和配置文件。
 2. 搭建 nginx，配置转发策略。
@@ -980,8 +968,6 @@ db.password.0=123456
 
 - IDEA
 
-  ![image-20220801215522180](C:\Users\yjw\AppData\Roaming\Typora\typora-user-images\image-20220801215522180.png)
-
   ```java
   -Dserver.port=8888
   -Dcsp.sentinel.dashboard.server=localhost:8888
@@ -989,7 +975,7 @@ db.password.0=123456
   -jar
   D:\IdeaWorkSpace\SpringCloud\sentinel\sentinel-dashboard-1.7.1.jar
   ```
-
+  
   
 
 ### 限流规则
@@ -1071,7 +1057,7 @@ db.password.0=123456
 
 >除了流量控制以外，对调用链路中不稳定的资源进行熔断降级也是保障高可用的重要措施之一。一个服务常常会调用别的模块，可能是另外的一个远程服务、数据库，或者第三方 API 等。例如，支付的时候，可能需要远程调用银联提供的 API；查询某个商品的价格，可能需要进行数据库查询。然而，这个被依赖服务的稳定性是不能保证的。如果依赖的服务出现了不稳定的情况，请求的响应时间变长，那么调用服务的方法的响应时间也会变长，线程会产生堆积，最终可能耗尽业务自身的线程池，服务本身也变得不可用。
 
-![chain](https://user-images.githubusercontent.com/9434884/62410811-cd871680-b61d-11e9-9df7-3ee41c618644.png)
+![chain](https://s2.loli.net/2025/06/10/VhakUw1ozSqGvxJ.png)
 
 > 现代微服务架构都是分布式的，由非常多的服务组成。不同服务之间相互调用，组成复杂的调用链路。以上的问题在链路调用中会产生放大的效果。复杂链路上的某一环不稳定，就可能会层层级联，最终导致整个链路都不可用。因此我们需要对不稳定的**弱依赖服务调用**进行熔断降级，暂时切断不稳定调用，避免局部不稳定因素导致整体的雪崩。熔断降级作为保护自身的手段，通常在客户端（调用端）进行配置。
 
@@ -1129,8 +1115,6 @@ db.password.0=123456
 
 热点规则，能够对某个资源的参数进行限制。
 
-![b68e22d702c646bc84b830767b10af7d](E:\Desktop\b68e22d702c646bc84b830767b10af7d.png)
-
 比如对第1个参数 p1 进行限制，达到指定 QPS 进行限流。若不指定 p1 ，不会触发限流。
 
 ```java
@@ -1151,7 +1135,7 @@ http://localhost:8401/testHotKey?p1=5&p2=1
 
 ### @SentinelResource
 
-```
+```java
 @SentinelResource(value = "customerBlockHandler",blockHandlerClass = CustomerBlockHandler.class,blockHandler = "blockHandlerExce")
 ```
 
